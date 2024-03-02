@@ -29,7 +29,7 @@ export const usersApi = createApi({
         }),
         updateUser: builder.mutation({
             query: ({ userId, userData }) => ({
-                url: `/user/${userId}`,
+                url: `/users/${userId}`,
                 body: userData,
             }),
         }),

@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -10,15 +11,18 @@ const authSlice = createSlice({
     reducers: {
         loginUser: (state, action) => {
             localStorage.setItem("user", JSON.stringify(action.payload));
-            return (state.user = action.payload);
+            state.user = action.payload;
+            console.log(action.payload)
         },
         registerUser: (state, action) => {
+            // Используйте Immer, чтобы изменить состояние
+            state.user = action.payload;
             localStorage.setItem("user", JSON.stringify(action.payload));
-            return (state.user = action.payload);
         },
         logoutUser: (state) => {
+            // Используйте Immer, чтобы изменить состояние
+            state.user = null;
             localStorage.removeItem("user");
-            return (state.user = null);
         },
     },
 });

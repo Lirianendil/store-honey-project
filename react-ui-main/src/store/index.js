@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query/react'; // Импорт middleware для RTK-Query
-import authReducer from '../redux/slices/authSlice';
+import  authSlice from '../redux/slices/authSlice';
 import { productApi } from '../redux/api/productApi'; // Импорт вашего API RTK-Query
 
 const store = configureStore({
     reducer: {
-        auth: authReducer,
+        auth: authSlice,
         [productApi.reducerPath]: productApi.reducer, // Добавление редюсера для API RTK-Query
     },
     middleware: (getDefaultMiddleware) =>

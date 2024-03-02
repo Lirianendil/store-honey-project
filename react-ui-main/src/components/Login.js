@@ -10,15 +10,15 @@ export const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     const onLoginSubmit = (event) => {
         event.preventDefault();
         const loginCredentials = { password, email: email.toLowerCase() };
-        dispatch(loginUser(loginCredentials)).then((result) => {
-            if (result.payload.data) {
+       Promise.resolve(dispatch(loginUser(loginCredentials))).then((result) => {
                 setEmail('');
                 setPassword('');
                 navigate('/');
-            }
+
         });
     }
 
