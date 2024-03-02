@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../schema/userSchema");
+const User = require("../schema/userSchema");
 
 const generateToken = (id) => {
     return jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -9,18 +9,22 @@ const generateToken = (id) => {
 };
 
 const register = async (req, res) => {
-    const { password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPwd = await bcrypt.hash(password, salt);
-    const user = await User.create({ ...req.body, password: hashedPwd });
+   try {
+       const { password } = req.body;
+       const salt = await bcrypt.genSalt(10);
+       const hashedPwd = await bcrypt.hash(password, salt);
+       const user = await User.create({ ...req.body, password: hashedPwd });
 
-    res.status(200).json({
-        _id: user.id,
-        name: user.name,
-        age: user.age,
-        jobTitle: user.jobTitle,
-        token: generateToken(user._id),
-    });
+       res.status(200).json({
+           _id: user.id,
+           name: user.name,
+           age: user.age,
+           jobTitle: user.jobTitle,
+           token: generateToken(user._id),
+       });
+   } catch (error) {
+       res.status(401).json(error)
+   }
 };
 
 const login = async (req, res) => {
