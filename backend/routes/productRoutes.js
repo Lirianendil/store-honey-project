@@ -9,6 +9,8 @@ const {
   deleteProduct,
   searchProducts,
 } = require("../controllers.js/productController");
+const Product = require("../schema/productSchema");
+
 router.post("/", protect, createProduct);
 router.get("/", getProducts);
 router.get("/search", searchProducts);
