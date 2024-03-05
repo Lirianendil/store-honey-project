@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../redux/slices/authSlice"; // Импорт loginUser из вашего authSlice.js
+import { loginUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
@@ -10,17 +10,17 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-//   const onLoginSubmit = (event) => {
-//       event.preventDefault();
-//       const loginCredentials = { password, email: email.toLowerCase() };
-//       dispatch(loginUser(loginCredentials)).then((result) => {
-//           if (result.payload.data) {
-//               setEmail('');
-//               setPassword('');
-//               navigate('/');
-//           }
-//       });
-//   }
+  //   const onLoginSubmit = (event) => {
+  //       event.preventDefault();
+  //       const loginCredentials = { password, email: email.toLowerCase() };
+  //       dispatch(loginUser(loginCredentials)).then((result) => {
+  //           if (result.payload.data) {
+  //               setEmail('');
+  //               setPassword('');
+  //               navigate('/');
+  //           }
+  //       });
+  //   }
 
   const onLoginSubmit = async (event) => {
     event.preventDefault();
@@ -29,13 +29,13 @@ export const Login = () => {
       const loginCredentials = { password, email: email.toLowerCase() };
       const result = await dispatch(loginUser(loginCredentials));
 
-      if (result.payload.data) {
+      if (result.payload.data) navigate("/");
+      {
         setEmail("");
         setPassword("");
         navigate("/");
       }
     } catch (error) {
-      // Обработка ошибок, если необходимо
       console.error("Ошибка при входе в систему:", error);
     }
   };

@@ -1,20 +1,19 @@
-// sessionSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    loading: false,
+  loading: false,
 };
 
 const sessionSlice = createSlice({
-    name: "session",
-    initialState,
-    reducers: {
-        setLoading(state, action) {
-            state.loading = action.payload;
-        },
+  name: "session",
+  initialState,
+  reducers: {
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
+  },
 });
 
 export const { setLoading } = sessionSlice.actions;
-export const { setLoading: setLoadingReducer } = sessionSlice.actions; // Здесь изменение имени экспорта
+export const { setLoading: setLoadingReducer } = sessionSlice.actions;
 export default sessionSlice.reducer;

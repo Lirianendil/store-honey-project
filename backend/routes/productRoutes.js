@@ -11,7 +11,7 @@ const {
 } = require("../controllers.js/productController");
 const Product = require("../schema/productSchema");
 
-router.post("/", protect, createProduct);
+router.post("/", createProduct);
 router.get("/", getProducts);
 router.get("/search", searchProducts);
 router.get("/:id", getProductById);
