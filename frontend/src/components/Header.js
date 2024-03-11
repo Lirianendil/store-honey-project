@@ -1,8 +1,8 @@
 import { logoutUser } from "../redux/slices/authSlice"; // Обновленный импорт для logoutUser
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { setLoadingReducer } from "../redux/slices/sessionSlice";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const menu = [
@@ -39,7 +39,7 @@ export function Header() {
       {location.pathname === "/auth" ? (
         ""
       ) : (
-        <div className="d-flex mb-5 justify-content-between align-items-center pt-2">
+        <div className="d-flex mb-5 justify-content-between align-items-center pt-2 bg-red-300">
           <div className="logo">
             <img
               width="100"
@@ -63,10 +63,18 @@ export function Header() {
                 </li>
               );
             })}
+            {data.user && data.user?.role === "admin" ? (
+              <Link to="/admin">Admin</Link>
+            ) : (
+              <Link to={`/profile/${data.user?._id}`}>Profile</Link>
+            )}
             <div className="position-relative">
-              <i className=" cursor-pointer  fa fa-cart-shopping fw-bold text-black">
-                30
-              </i>
+              <Link
+                to={"/order"}
+                className=" cursor-pointer  fa fa-cart-shopping fw-bold text-black"
+              >
+                0
+              </Link>
             </div>
             <div className="d-flex gap-3 align-items-center">
               {data.user ? (
@@ -92,26 +100,6 @@ export function Header() {
                   onClick={onLoginClicked}
                 >
                   Login
-                </div>
-              )}
-            </div>
-            <div className="d-flex gap-3 align-items-center">
-              {data.user ? (
-                <div className="d-flex gap-3">
-                  <div className="fw-bold text-black">{data.user.name}</div>
-                  <div
-                    className="cursor-pointer  text-decoration-none text-black list-unstyled fw-bold"
-                    onClick={onLogoutClicked}
-                  >
-                    <i className="fa fa-sign-out"></i>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className="cursor-pointer  text-decoration-none text-black list-unstyled fw-bold"
-                  onClick={onAdminClicked}
-                >
-                  Admin
                 </div>
               )}
             </div>

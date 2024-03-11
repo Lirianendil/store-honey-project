@@ -1,9 +1,6 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { User } = require("../schema/userSchema");
-const {register, login} = require("../controllers.js/authController");
-const router = express.Router();
+const Router = require("express");
+const { register, login } = require("../controllers/authController");
+const router = Router();
 
 // router.post("/register", async (req, res) => {
 //     // try {
@@ -34,7 +31,7 @@ const router = express.Router();
 //     // res.status(200).json("REGISTER")
 // });
 
-router.post("/register", register)
-router.post("/login", login)
+router.post("/register", register);
+router.post("/login", login);
 
 module.exports = router;

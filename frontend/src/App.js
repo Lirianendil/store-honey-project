@@ -4,16 +4,19 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import { Home } from "./components/Home";
-import { Login } from "./components/Login";
-import { Admin } from "./components/Admin";
+import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
+import { Admin } from "./pages/Admin/Admin";
 import { Header } from "./components/Header";
-import { ContactUs } from "./components/ContactUs";
+import { ContactUs } from "./pages/ContactUs";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loginUser } from "./redux/slices/authSlice";
 import { Footer } from "./components/Footer";
 import { Toaster } from "react-hot-toast";
+import Search from "./pages/Search";
+import User from "./pages/User";
+import { Order } from "./pages/Order/Order";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -44,6 +47,9 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/profile" element={<User />} />
+          <Route path="/order" element={<Order />} />
         </Routes>
         <Footer />
       </Router>

@@ -8,14 +8,16 @@ const {
   updateProduct,
   deleteProduct,
   searchProducts,
-} = require("../controllers.js/productController");
+  editProduct,
+} = require("../controllers/productController");
 const Product = require("../schema/productSchema");
 
-router.post("/", createProduct);
+router.post("/", protect, createProduct);
 router.get("/", getProducts);
 router.get("/search", searchProducts);
-router.get("/:id", getProductById);
-router.patch("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.get("/:id", protect, getProductById);
+router.patch("/:productId", protect, editProduct);
+router.patch("/:id", protect, updateProduct);
+router.delete("/:id", protect, deleteProduct);
 
 module.exports = router;

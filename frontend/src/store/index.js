@@ -1,17 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query/react'; // Импорт middleware для RTK-Query
-import authReducer from '../redux/slices/authSlice';
-import { productApi } from '../redux/api/productApi'; // Импорт вашего API RTK-Query
+import { configureStore } from "@reduxjs/toolkit";
+import { usersApi } from "../redux/api/usersApi";
+import { authApi } from "../redux/api/authApi";
+import authReducer from "../redux/slices/authSlice";
+import { productApi } from "../redux/api/productApi";
+import { orderApi } from "../redux/api/orderApi";
 
 const store = configureStore({
-    reducer: {
-        auth: authReducer,
-        [productApi.reducerPath]: productApi.reducer, // Добавление редюсера для API RTK-Query
-    },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(productApi.middleware), // Добавление middleware для API RTK-Query
+  reducer: {
+    [usersApi.reducerPath]: usersApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
+    auth: authReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat([
+      usersApi.middleware,
+      authApi.middleware,
+      productApi.middleware,
+      orderApi.middleware,
+    ]);
+  },
 });
-
-setupListeners(store.dispatch);
 
 export default store;

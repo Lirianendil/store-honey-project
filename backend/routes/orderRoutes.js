@@ -5,10 +5,10 @@ const {
   createOrder,
   getOrderById,
   updateOrder,
-} = require("../controllers.js/orderControllers");
+} = require("../controllers/orderControllers");
 
 router.post("/createOrder", protect, createOrder);
 router.get("/:orderId", getOrderById);
 router.patch("/:orderId", protect, updateOrder);
 //roll protect create
-module.exports = router;
+module.exports = router; 
