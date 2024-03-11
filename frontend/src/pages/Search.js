@@ -1,37 +1,48 @@
-import React from "react";
 import SearchBar from "../components/SearchBar";
 import ProductsList from "../components/ProductList";
 import { useSearchProductsQuery } from "../redux/api/productApi";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "../components/Pagination/Pagination";
+import Section from "../components/layout/Section";
 
-const Search = () => {
+const SearchPage = () => {
   const [params] = useSearchParams();
 
-  const searchString = params.get("searchString");
+  const [searchString, setSearchString] = useState(params.get("searchString"));
 
-  const {
-    data: productsList,
-    isFetching: productsIsFetching,
-    isSuccess,
-    isLoading,
-    isError,
-  } = useSearchProductsQuery("searchString");
+  console.log("searchString", searchString);
 
-  console.log("Search String:", searchString);
+  const { data: products, isFetching: productsIsFetching } =
+    useSearchProductsQuery({
+      searchString: params.get("searchString"),
+      page: params.get("page"),
+    });
+
+  console.log("productsIsFetching", products);
 
   return (
     <main>
-      <section className="search_section">
-        <SearchBar initialSearchString={params.get("searchString")} />
-      </section>
-      <section className="product_section">
+      <Section id="search_section">
+        <SearchBar
+          searchString={searchString}
+          setSearchString={setSearchString}
+          isSearch
+        />
+      </Section>
+      <Section id="product_section">
         <ProductsList
-          productsList={productsList}
+          productsList={products?.data}
           productsIsFetching={productsIsFetching}
         />
-      </section>
+      </Section>
+      <Pagination
+        isSearch
+        searchString={searchString}
+        totalPages={products?.totalPages}
+      />
     </main>
   );
 };
 
-export default Search;
+export default SearchPage;

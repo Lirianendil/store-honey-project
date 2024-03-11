@@ -13,17 +13,7 @@ export const productApi = createApi({
         },
         body: body,
       }),
-    }),
-    getProducts: builder.query({
-      query: () => ({
-        url: "/products",
-      }),
-    }),
-    searchProducts: builder.query({
-      query: (searchString) => ({
-        url: "/products/search",
-        params: { searchString },
-      }),
+      invalidatesTags: ["Products"],
     }),
     editProduct: builder.mutation({
       query: ({ token, productId, productData }) => ({
@@ -46,6 +36,12 @@ export const productApi = createApi({
       }),
       invalidatesTags: ["Products"],
     }),
+    getProducts: builder.query({
+      query: () => ({
+        url: "/products",
+      }),
+      providesTags: ["Products"],
+    }),
     getProductDetails: builder.query({
       query: ({ token, productId }) => ({
         url: `/products/${productId}`,
@@ -55,7 +51,14 @@ export const productApi = createApi({
       }),
       providesTags: ["Product"],
     }),
+    searchProducts: builder.query({
+      query: ({ searchString, page, limit }) => ({
+        url: "/products/search",
+        params: { searchString, page, limit },
+      }),
+    }),
   }),
+  tagTypes: ["Products", "Product"],
 });
 
 export const {

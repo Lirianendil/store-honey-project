@@ -63,11 +63,11 @@ export function Header() {
                 </li>
               );
             })}
-            {data.user && data.user?.role === "admin" ? (
+            {/* {data.user && data.user?.role === "admin" ? (
               <Link to="/admin">Admin</Link>
             ) : (
               <Link to={`/profile/${data.user?._id}`}>Profile</Link>
-            )}
+            )} */}
             <div className="position-relative">
               <Link
                 to={"/order"}
