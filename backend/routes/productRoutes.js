@@ -1,23 +1,23 @@
 const express = require("express");
-const router = express.Router();
 const { protect } = require("../authMiddleware");
 const {
   createProduct,
   getProducts,
-  getProductById,
   updateProduct,
-  deleteProduct,
   searchProducts,
+  deleteProduct,
+  getProductDetails,
   editProduct,
 } = require("../controllers/productController");
-const Product = require("../schema/productSchema");
+const upload = require("../multer");
+const router = express.Router();
 
-router.post("/", protect, createProduct);
+router.post("/", protect, upload.single("image"), createProduct);
 router.get("/", getProducts);
 router.get("/search", searchProducts);
-router.get("/:id", protect, getProductById);
+router.get("/:productId", protect, getProductDetails);
 router.patch("/:productId", protect, editProduct);
-router.patch("/:id", protect, updateProduct);
-router.delete("/:id", protect, deleteProduct);
+router.patch("/:productId", protect, upload.single("image"), updateProduct);
+router.delete("/:productId", protect, deleteProduct);
 
 module.exports = router;

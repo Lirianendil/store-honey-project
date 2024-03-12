@@ -8,7 +8,7 @@ import "./Admin.css";
 import ProductForm from "../../components/ProductForm";
 import SearchBar from "../../components/SearchBar";
 import { useEffect, useState } from "react";
-// import Pagination from "../../components/Pagination/Pagination";
+import Pagination from "../../components/Pagination/Pagination";
 import Section from "../../components/layout/Section";
 import Title from "../Title";
 

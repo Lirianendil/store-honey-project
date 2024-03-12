@@ -34,6 +34,10 @@ export function Header() {
     navigate("/admin");
   };
 
+  const onRegisterClicked = () => {
+    navigate("/register");
+  };
+
   return (
     <>
       {location.pathname === "/auth" ? (
@@ -63,11 +67,6 @@ export function Header() {
                 </li>
               );
             })}
-            {/* {data.user && data.user?.role === "admin" ? (
-              <Link to="/admin">Admin</Link>
-            ) : (
-              <Link to={`/profile/${data.user?._id}`}>Profile</Link>
-            )} */}
             <div className="position-relative">
               <Link
                 to={"/order"}
@@ -95,11 +94,20 @@ export function Header() {
                   </div>
                 </div>
               ) : (
-                <div
-                  className="cursor-pointer  text-decoration-none text-black list-unstyled fw-bold"
-                  onClick={onLoginClicked}
-                >
-                  Login
+                <div>
+                  <div
+                    className="cursor-pointer text-decoration-none text-black
+                    list-unstyled fw-bold"
+                    onClick={onRegisterClicked}
+                  >
+                    Register
+                  </div>
+                  <div
+                    className="cursor-pointer  text-decoration-none text-black list-unstyled fw-bold"
+                    onClick={onLoginClicked}
+                  >
+                    Login
+                  </div>
                 </div>
               )}
             </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,28 +42,36 @@ export const Login = () => {
   };
 
   return (
-    <form className="form-group custom-form" onSubmit={onLoginSubmit}>
-      <label>Email</label>
-      <input
-        type="email"
-        required
-        className="form-control"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <label>Password</label>
-      <input
-        type="password"
-        required
-        className="form-control"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button type="submit" className="btn btn-warning btn md">
-        Login
-      </button>
-    </form>
+    <div>
+      <form className="form-group custom-form" onSubmit={onLoginSubmit}>
+        <label>Email</label>
+        <input
+          type="email"
+          required
+          className="form-control"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <label>Password</label>
+        <input
+          type="password"
+          required
+          className="form-control"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <button type="submit" className="btn btn-warning btn md">
+          Login
+        </button>
+      </form>
+      <p className="text-left text-sm mt-2">
+        Don't have account ?{" "}
+        <Link to={"/register"} className="text-red-500 underline">
+          Sign Up
+        </Link>
+      </p>
+    </div>
   );
 };

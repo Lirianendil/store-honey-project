@@ -5,7 +5,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Provider } from "react-redux";
 import store from "./store";
-import "./css/index.css";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SearchBar = ({ initialSearchString }) => {
-  const [searchString, setSearchString] = useState(initialSearchString);
-
+const SearchBar = ({ isSearch, searchString, setSearchString }) => {
   return (
     <div>
       <input
@@ -11,7 +8,11 @@ const SearchBar = ({ initialSearchString }) => {
         value={searchString}
         onChange={(e) => setSearchString(e.target.value)}
       />
-      <Link to={`/search?searchString=${searchString}`}>Search</Link>
+      {isSearch && (
+        <Link to={`/search?searchString=${searchString || ""}&page=1`}>
+          Search
+        </Link>
+      )}
     </div>
   );
 };

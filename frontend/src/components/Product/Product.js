@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAddItemToCartMutation } from "../../redux/api/usersApi";
 import { useUser } from "../../hooks/useUser";
-
 import "./Product.css";
 import { Link } from "react-router-dom";
 import { useDeleteProductMutation } from "../../redux/api/productApi";

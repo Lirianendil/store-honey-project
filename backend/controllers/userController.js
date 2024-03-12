@@ -91,6 +91,39 @@ const removeItemFromCart = async (req, res) => {
   }
 };
 
+const getItemsNumberInCart = async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user)
+    res.status(500).json({ message: `User with id ${req.user._id} not found` });
+
+  res.status(200).json({ amount: user.cart.length });
+};
+
+const getUserDetails = async (req, res) => {
+  const user = await User.findById(req.user._id).populate("cart.product");
+  const orders =
+    (await Order.find({ user: req.user._id }).populate(
+      "orderProducts.product"
+    )) || [];
+  user.orders = orders;
+  res.status(200).json(user);
+};
+
+const postGetUserProfile = async (req, res) => {
+  const { userId } = req.params;
+
+  const { reqUserId } = req.body;
+
+  if (userId && reqUserId && userId !== reqUserId) {
+    res.status(200).json({ message: "You don't have access to this profile" });
+  }
+
+  const user = await User.findById(userId);
+
+  res.status(200).json(user);
+};
+
 const updateItemInCart = async (req, res) => {
   try {
     const reqUser = req.user;
@@ -133,6 +166,9 @@ module.exports = {
   createUser,
   searchUsers,
   addItemToCart,
+  getItemsNumberInCart,
+  getUserDetails,
+  postGetUserProfile,
   removeItemFromCart,
   updateItemInCart,
 };

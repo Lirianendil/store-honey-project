@@ -1,12 +1,12 @@
 import SearchBar from "../components/SearchBar";
-import ProductsList from "../components/ProductList";
+import ProductsList from "../components/ProductList/ProductList";
 import { useSearchProductsQuery } from "../redux/api/productApi";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import Section from "../components/layout/Section";
 
-const SearchPage = () => {
+const Search = () => {
   const [params] = useSearchParams();
 
   const [searchString, setSearchString] = useState(params.get("searchString"));
@@ -45,4 +45,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default Search;

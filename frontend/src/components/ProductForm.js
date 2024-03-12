@@ -1,74 +1,99 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCreateProductMutation } from "../redux/api/productApi";
 import { useUser } from "../hooks/useUser";
 
 const ProductForm = () => {
   const user = useUser();
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
-  const [amount, setAmount] = useState("");
+  const [productData, setProductData] = useState({
+    name: null,
+    description: null,
+    amount: null,
+    price: null,
+    image: null,
+  });
 
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
+  console.log("DATA =>", productData);
+
+  const handleChange = (e) => {
+    setProductData({ ...productData, [e.target.name]: e.target.value });
   };
 
-  const [createProduct, { data: productData }] = useCreateProductMutation();
+  const [createProduct] = useCreateProductMutation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("price", price);
-    // Приделываем картинку
-    formData.append("image", image);
-    formData.append("amount", amount);
-    formData.append("token", user.token);
+    formData.append("name", productData.name);
+    formData.append("description", productData.description);
+    formData.append("amount", productData.amount);
+    formData.append("price", productData.price);
+    formData.append("image", productData.image);
+    formData.append("token", user?.token);
 
-    try {
-      // Handle success or redirect
-      createProduct(formData);
-    } catch (err) {
-      console.error(err);
-      // Handle error
-    }
+    createProduct(formData);
   };
 
   return (
-    <div className="input-box">
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Amount"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        multiple="true"
-      />
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    <form className="product_form" onSubmit={handleSubmit}>
+      <div className="product_form-inputs">
+        <div className="product_form-row">
+          Name:
+          <input
+            type="text"
+            name="name"
+            placeholder="name"
+            value={productData?.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="product_form-row">
+          Description:
+          <input
+            type="text"
+            name="description"
+            placeholder="description"
+            value={productData?.description}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="product_form-row">
+          Price:
+          <input
+            type="text"
+            name="price"
+            placeholder="price"
+            value={productData?.price}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="product_form-row">
+          Amount:
+          <input
+            type="text"
+            name="amount"
+            placeholder="amount"
+            value={productData?.amount}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="product_form-row">
+          Image:
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) =>
+              setProductData({ ...productData, image: e.target.files[0] })
+            }
+          />
+        </div>
+        {/* <div>
+          Posters:
+          <input type="file" multiple={true} accept="image/*" />
+        </div> */}
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

@@ -1,14 +1,19 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const path = require("path");
 const mongoose = require("mongoose");
 const { protect } = require("./authMiddleware");
-const  Product  = require("./schema/productSchema");
-const Order  = require("../backend/schema/orderSchema");
+const Product = require("./schema/productSchema");
+const Order = require("./schema/orderSchema");
 // const multer = require("multer");
-const userRoutes = require("../backend/routes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
+const cors = require("cors");
+corsOptions = {
+  origin: "http://localhost:5173",
+};
+app.use(cors(corsOptions));
 
-require('dotenv').config();
+require("dotenv").config();
 
 // Подключаем маршруты
 const authRoutes = require("./routes/authRoutes");
@@ -18,60 +23,29 @@ const orderRoutes = require("./routes/orderRoutes");
 const PORT = process.env.PORT || 8080;
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-    .then(() => console.log("Connected to Database"))
-    .catch((err) => console.error("Connection Error:", err));
+mongoose
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to Database"))
+  .catch((err) => console.error("Connection Error:", err));
 
 app.use(express.json());
-app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
 // Routes
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
-
-// // Обработка загрузки изображений
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/"); // Папка, куда будут сохраняться изображения
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg"); // Генерация уникального имени файла
-//   },
-// });
-//
-// const upload = multer({ storage: storage });
-//
-// app.post("/products", upload.single("image"), async (req, res) => {
-//   try {
-//     const { name, description, price, amount } = req.body;
-//     const imageUrl = req.file.path;
-//     const product = await Product.create({
-//       name,
-//       description,
-//       price,
-//       amount,
-//       imageUrl,
-//     });
-//     res.status(201).json(product);
-//   } catch (error) {
-//     console.error("Error adding product:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
+app.use("/users", userRoutes);
 
 // Middleware для обработки ошибок
 const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 };
 
 app.use(errorHandler);
-
-
 
 app.listen(PORT, () => console.log("Сервер запущен на порту: " + PORT));

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   name: String,
   password: String,
-  email: String,
+  age: Number,
+  jobTitle: String,
   role: {
     type: String,
     default: "user",
@@ -27,4 +28,4 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = { User };

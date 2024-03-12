@@ -1,4 +1,5 @@
-import Product from "./Product/Product";
+import Product from "../Product/Product";
+import "./ProductList.css";
 
 const ProductsList = ({ productsList, productsIsFetching }) => {
   if (productsIsFetching) return <div>Products list is loading...</div>;
