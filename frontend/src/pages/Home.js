@@ -6,8 +6,13 @@ import { addToCart } from "../redux/slices/cartSlice";
 import SearchBar from "../components/SearchBar";
 import ProductsList from "../components/ProductList/ProductList";
 import Section from "../components/layout/Section";
+import { useState } from "react";
+import { useAddItemToCartMutation } from "../redux/api/usersApi";
+import Product from "../components/Product/Product";
 
 export const Home = () => {
+  const [searchString, setSearchString] = useState("");
+
   const dispatch = useDispatch();
 
   const {
@@ -20,9 +25,7 @@ export const Home = () => {
   //   dispatch(setLoading(isLoading));
   // }, [isLoading, dispatch]);
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product)); // Добавление продукта в корзину при клике на кнопку "Add to cart"
-  };
+  const [addToCart] = useAddItemToCartMutation();
 
   if (isError) {
     return <div>Ошибка при загрузке продуктов</div>;
@@ -32,31 +35,24 @@ export const Home = () => {
     <main>
       <div className="d-flex mb-10px">
         <Section>
-          <SearchBar isSearch />
+          <SearchBar
+            isSearch
+            searchString={searchString}
+            setSearchString={setSearchString}
+          />
         </Section>
       </div>
       <div className="d-flex gap-5">
-        {products?.map((product) => (
-          <div className="card" key={product._id}>
-            <div className="card-body">
-              <h5 className="card-title">{product.name}</h5>
-              <p className="card-text">{product.price} $</p>
-              <button
-                className="btn btn-warning"
-                onClick={() => dispatch(addToCart(product))}
-              >
-                Add to cart
-              </button>
-            </div>
-          </div>
+        {products?.data?.map((product) => (
+          <Product product={product} />
         ))}
       </div>
-      <Section>
+      {/* <Section>
         <ProductsList
           productsList={products?.data}
           productsIsFetching={productsIsFetching}
         />
-      </Section>
+      </Section> */}
     </main>
   );
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoadingReducer } from "../redux/slices/sessionSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Cart from "./Cart";
 
 export function Header() {
   const menu = [
@@ -68,12 +69,7 @@ export function Header() {
               );
             })}
             <div className="position-relative">
-              <Link
-                to={"/order"}
-                className=" cursor-pointer  fa fa-cart-shopping fw-bold text-black"
-              >
-                0
-              </Link>
+              <Cart />
             </div>
             <div className="d-flex gap-3 align-items-center">
               {data.user ? (

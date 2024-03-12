@@ -3,39 +3,30 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useLoginMutation } from "../redux/api/authApi";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //   const onLoginSubmit = (event) => {
-  //       event.preventDefault();
-  //       const loginCredentials = { password, email: email.toLowerCase() };
-  //       dispatch(loginUser(loginCredentials)).then((result) => {
-  //           if (result.payload.data) {
-  //               setEmail('');
-  //               setPassword('');
-  //               navigate('/');
-  //           }
-  //       });
-  //   }
+  const [login, { isSuccess: loginIsSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    if (loginIsSuccess) {
+      setEmail("");
+      setPassword("");
+      navigate("/");
+    }
+  }, [loginIsSuccess]);
 
   const onLoginSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const loginCredentials = { password, email: email.toLowerCase() };
-      const result = await dispatch(loginUser(loginCredentials));
-
-      if (result.payload.data) navigate("/");
-      {
-        setEmail("");
-        setPassword("");
-        navigate("/");
-      }
+      login(loginCredentials);
     } catch (error) {
       console.error("Ошибка при входе в систему:", error);
     }

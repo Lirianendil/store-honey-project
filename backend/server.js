@@ -7,9 +7,10 @@ const Product = require("./schema/productSchema");
 const Order = require("./schema/orderSchema");
 // const multer = require("multer");
 const userRoutes = require("./routes/userRoutes");
+
 const cors = require("cors");
 corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:3000",
 };
 app.use(cors(corsOptions));
 

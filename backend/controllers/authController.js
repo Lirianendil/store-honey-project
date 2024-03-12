@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../schema/userSchema");
+const { User } = require("../schema/userSchema");
 const Role = require("../schema/roleSchema");
 
 const generateToken = (id) => {
@@ -18,7 +18,7 @@ const register = async (req, res) => {
 
     res.status(200).json({
       _id: user.id,
-      name: user.name,
+      email: user.email,
       age: user.age,
       jobTitle: user.jobTitle,
       token: generateToken(user._id),
@@ -29,8 +29,8 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { name, password } = req.body;
-  const user = await User.findOne({ name });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
   if (user) {
     // User found, now check password
@@ -38,7 +38,7 @@ const login = async (req, res) => {
       // Passwords match, generate token and send response
       res.status(200).json({
         _id: user.id,
-        name: user.name,
+        email: user.email,
         age: user.age,
         jobTitle: user.jobTitle,
         token: generateToken(user._id),
@@ -49,7 +49,7 @@ const login = async (req, res) => {
     }
   } else {
     // User not found
-    res.status(401).json({ error: `Пользователь с именем ${name} не найден` });
+    res.status(401).json({ error: `Пользователь с именем ${email} не найден` });
   }
 };
 

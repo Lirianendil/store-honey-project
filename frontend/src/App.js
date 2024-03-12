@@ -10,9 +10,7 @@ import { Login } from "./pages/Login";
 import { Admin } from "./pages/Admin/Admin";
 import { Header } from "./components/Header";
 import { ContactUs } from "./pages/ContactUs";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { loginUser } from "./redux/slices/authSlice";
+import { useSelector } from "react-redux";
 import { Footer } from "./components/Footer";
 import { Toaster } from "react-hot-toast";
 import Search from "./pages/Search";
@@ -20,12 +18,7 @@ import User from "./pages/User";
 import { Order } from "./pages/Order/Order";
 
 export default function App() {
-  const dispatch = useDispatch();
   const session = useSelector((state) => state.session);
-
-  useEffect(() => {
-    dispatch(loginUser());
-  }, []);
 
   return (
     <div className="container">

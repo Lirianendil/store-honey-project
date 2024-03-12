@@ -1,5 +1,5 @@
-const Product = require("../schema/productSchema");
-const Order = require("../schema/orderSchema");
+const { Product } = require("../schema/productSchema");
+const { Order } = require("../schema/orderSchema");
 const fs = require("fs");
 
 const createProduct = async (req, res) => {

@@ -1,16 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "../../hooks/useUser";
-import { useGetItemsNumberInCartQuery } from "../../redux/api/usersApi";
+import { useGetItemsNumberInCartQuery } from "../redux/api/usersApi";
+import { useUser } from "../hooks/useUser";
 
 const Cart = () => {
   const user = useUser();
+
   const { data: itemsNumber, isFetching: cartIsFetching } =
     useGetItemsNumberInCartQuery(user?.token);
 
+  console.log(itemsNumber);
+
   if (cartIsFetching) return <>Cart is Loading...</>;
 
-  return <Link to="/order">Items: {itemsNumber?.amount}</Link>;
+  if (!user) return null;
+
+  return (
+    <Link
+      to={"/order"}
+      className=" cursor-pointer  fa fa-cart-shopping fw-bold text-black"
+    >
+      Items: {itemsNumber?.amount}
+    </Link>
+  );
 };
 
 export default Cart;
