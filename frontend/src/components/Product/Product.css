@@ -1,0 +1,11 @@
+.product_card {
+  border: solid 1px #fff;
+  border-radius: 10px;
+}
+
+.count_btns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
