@@ -8,11 +8,10 @@ import { useDeleteProductMutation } from "../../redux/api/productApi";
 const Product = ({ product, isAdmin }) => {
   const [count, setCount] = useState(0);
   const user = useUser();
-  console.log(user);
   const [addToCart] = useAddItemToCartMutation();
   const [deleteProduct] = useDeleteProductMutation();
   return (
-    <div className="product_card">
+    <div className="product_card cursor-pointer">
       <div>Name: {product.name}</div>
       <p>Price: {product.price}</p>
       {!isAdmin ? (

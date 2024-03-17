@@ -17,9 +17,17 @@ import Search from "./pages/Search";
 import User from "./pages/User";
 import { Order } from "./pages/Order/Order";
 import Register from "./pages/Register";
+import {useEffect} from "react";
+import {useLoadMutation} from "./redux/api/authApi";
 
 export default function App() {
   const session = useSelector((state) => state.session);
+  const [load] = useLoadMutation();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    load(user?.token);
+  }, []);
 
   return (
       <div className="container">

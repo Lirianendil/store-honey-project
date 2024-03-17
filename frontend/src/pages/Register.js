@@ -22,7 +22,7 @@ const Register = () => {
           }}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           onChange={(e) => {
             setCredentials((prev) => ({ ...prev, password: e.target.value }));

@@ -40,9 +40,9 @@ export const Home = () => {
           </Section>
         </div>
         <div className="d-flex gap-5">
-          {products?.data?.map((product) => (
+          {products?.data?.map((product ,index) => (
               <Product
-                  key={product.id}
+                  key={index}
                   product={product}
                   onAddToCart={() => handleAddToCart(product)}
               />

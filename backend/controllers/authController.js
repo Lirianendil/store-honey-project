@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {User} = require("../schema/userSchema");
 const Role = require("../schema/roleSchema")
+const e = require("express");
 
 const generateToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -11,14 +12,13 @@ const generateToken = (id) => {
 
 const register = async (req, res) => {
   try {
-    const { email, password, role } = req.body; // Добавлено получение роли из запроса
+    const { name, password, role } = req.body; // Добавлено получение роли из запроса
     const salt = await bcrypt.genSalt(10);
     const hashedPwd = await bcrypt.hash(password, salt);
-
-    const user = await User.create({ email, password: hashedPwd, role });
+    const user = await User.create({ email: name, password: hashedPwd, role })
 
     res.status(200).json({
-      _id: user.id,
+      _id: user?.id,
       email: user.email,
       role: user.role,
       token: generateToken(user._id),
@@ -35,9 +35,8 @@ const login = async (req, res) => {
   if (user) {
 
     if (await bcrypt.compare(password, user.password)) {
-
       res.status(200).json({
-        _id: user.id,
+        _id: user?.id,
         email: user.email,
         role: user.role,
         token: generateToken(user._id),
@@ -52,4 +51,17 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const load = async (req, res) => {
+  const { user } = req;
+  if (user) {
+    res.status(200).json({
+      _id: user?.id,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id),
+    });
+  }
+
+}
+
+module.exports = { login, register, load };

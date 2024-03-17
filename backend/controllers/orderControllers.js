@@ -9,14 +9,15 @@ const createOrder = async (req, res) => {
   try {
     const orderData = req.body;
     const user = req.user;
-    // productsIds - массив айди по типу ["a234sdfz123xv", "qw1er234qwer"]
-    const productsIds = orderData.orderProducts.map((product) => {
+
+    const productsIds = Array.from(new Set(orderData.orderProducts.map((product) => {
       return product.product;
-    });
-    // products - массив двух товаров
+    })));
+
     const products = await Product.find({ _id: { $in: productsIds } });
+
     let sum = 0;
-    // цикл в цикле - find внутри forEach
+
     products.forEach(
         (product) =>
             (sum +=
@@ -25,12 +26,15 @@ const createOrder = async (req, res) => {
                     (orderProduct) => orderProduct.product == product._id
                 ).amount)
     );
-    const newOrder = await Order.create({
+    const newOrderData = {
       deliveryType: orderData.deliveryType,
       user: req.user._id,
       totalSum: sum,
-      orderProducts: orderData.orderProducts,
-    });
+      orderProducts: products.map(product => product._id),
+    };
+
+    const newOrder = await Order.create(newOrderData);
+
     if (newOrder && sum > 0)
       await User.findByIdAndUpdate(user._id, { cart: [] }, { new: true });
     res.status(201).json(newOrder);

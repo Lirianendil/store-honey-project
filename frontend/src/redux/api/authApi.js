@@ -31,7 +31,25 @@ export const authApi = createApi({
         }
       },
     }),
+    load: builder.mutation({
+      query: (token) => ({
+        url: "/auth/load",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: {}
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(loginUser(data));
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    })
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useLoadMutation } = authApi;

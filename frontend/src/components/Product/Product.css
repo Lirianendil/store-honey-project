@@ -1,6 +1,6 @@
 .product_card {
-  border: solid 1px #fff;
   border-radius: 10px;
+  border: 2px solid black;
 }
 
 .count_btns {

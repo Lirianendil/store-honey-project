@@ -10,8 +10,6 @@ const Pagination = ({ isSearch, totalPages, searchString }) => {
     pagesArray.push(i);
   }
 
-  console.log(totalPages, pagesArray);
-
   return (
     <div className="pagination">
       {pagesArray.map((page) => (
