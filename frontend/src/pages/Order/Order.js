@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Order = () => {
   const user = useUser();
+  console.log("user",user?.token)
   const navigate = useNavigate();
   //TODO local storage works async.. need get user -> getToken
   const { data: userData } = useGetUserDetailsQuery(user?.token);

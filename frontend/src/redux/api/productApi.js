@@ -57,6 +57,20 @@ export const productApi = createApi({
         params: { searchString, page, limit },
       }),
     }),
+    // Метод для загрузки фотографий продуктов
+    uploadProductPhoto: builder.mutation({
+      query: (formData) => {
+        const headers = {
+          "Content-Type": "multipart/form-data",
+        };
+        return {
+          url: "/products/upload-photo",
+          method: "POST",
+          headers,
+          body: formData,
+        };
+      },
+    }),
   }),
   tagTypes: ["Products", "Product"],
 });
@@ -69,4 +83,5 @@ export const {
   useDeleteProductMutation,
   useGetProductDetailsQuery,
   useEditProductMutation,
+  useUploadProductPhotoMutation, // Используйте этот хук для загрузки фотографий продуктов
 } = productApi;

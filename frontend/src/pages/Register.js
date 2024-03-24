@@ -5,7 +5,6 @@ const Register = () => {
   const [credentials, setCredentials] = useState({
     name: null,
     password: null,
-    role: null,
   });
 
   const [register] = useRegisterMutation();

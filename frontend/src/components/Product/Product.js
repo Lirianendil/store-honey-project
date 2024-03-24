@@ -12,6 +12,8 @@ const Product = ({ product, isAdmin }) => {
   const [deleteProduct] = useDeleteProductMutation();
   return (
     <div className="product_card cursor-pointer">
+        <img src ={"http://localhost:8080/" + product.image } alt=""
+        width={150} height={150}/>
       <div>Name: {product.name}</div>
       <p>Price: {product.price}</p>
       {!isAdmin ? (
