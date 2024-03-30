@@ -19,6 +19,7 @@ import { Order } from "./pages/Order/Order";
 import Register from "./pages/Register";
 import {useEffect} from "react";
 import {useLoadMutation} from "./redux/api/authApi";
+import EditProductPage from "./pages/EditProductPage";
 
 export default function App() {
   const session = useSelector((state) => state.session);
@@ -52,6 +53,10 @@ export default function App() {
             <Route path="/profile" element={<User />} />
             <Route path="/order" element={<Order />} />
             <Route path="/Register" element={<Register />} />
+            <Route
+                path="/admin/products/edit/:productId"
+                element={<EditProductPage />}
+            />
           </Routes>
           <Footer />
         </Router>

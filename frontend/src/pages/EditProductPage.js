@@ -7,7 +7,7 @@ const EditProductPage = () => {
     const { productId } = useParams();
     const user = useUser();
 
-    const { data: productData, isFetching: productIsFetching } = useGetProductDetailsQuery({ token: user?.token, productId: productId });
+    const { data: productData } = useGetProductDetailsQuery({ token: user?.token, productId: productId });
 
     const [newProductData, setNewProductData] = useState(productData || {});
     const [file, setFile] = useState(null);
@@ -29,12 +29,17 @@ const EditProductPage = () => {
             if (file) {
                 const formData = new FormData();
                 formData.append('photo', file);
-                const { data: { url } } = await uploadProductPhoto(formData);
-                setNewProductData({ ...newProductData, photoUrl: url });
+                const response = await uploadProductPhoto(formData);
+                if (response.data && response.data.url) {
+                    const { url } = response.data;
+                    setNewProductData({ ...newProductData, photoUrl: url });
+                } else {
+                    console.error('Error uploading photo: response data is invalid');
+                }
             }
             await editProduct({ token: user?.token, productId: productId, productData: newProductData });
         } catch (error) {
-            console.error('Error editing product:', error);
+            console.error('Error uploading photo:', error);
         }
     };
 
@@ -93,3 +98,4 @@ const EditProductPage = () => {
 };
 
 export default EditProductPage;
+

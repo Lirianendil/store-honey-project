@@ -11,6 +11,7 @@ const ProductPhotoUploader = () => {
     formData.append("photo", file);
     try {
       await uploadProductPhoto(formData);
+      onPhotoUpload(url);
       console.log("Photo uploaded successfully");
     } catch (error) {
       console.error("Error uploading photo:", error);

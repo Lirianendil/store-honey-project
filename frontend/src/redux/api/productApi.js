@@ -83,5 +83,5 @@ export const {
   useDeleteProductMutation,
   useGetProductDetailsQuery,
   useEditProductMutation,
-  useUploadProductPhotoMutation, // Используйте этот хук для загрузки фотографий продуктов
+  useUploadProductPhotoMutation,
 } = productApi;
