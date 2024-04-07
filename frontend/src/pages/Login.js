@@ -11,7 +11,6 @@ export const Login = () => {
 
   const [login, { isSuccess: loginIsSuccess }] = useLoginMutation();
 
-
   useEffect(() => {
     if (loginIsSuccess) {
       setEmail("");
@@ -22,7 +21,6 @@ export const Login = () => {
 
   const onLoginSubmit = async (event) => {
     event.preventDefault();
-
 
     try {
       const loginCredentials = { password, email: email.toLowerCase() };
