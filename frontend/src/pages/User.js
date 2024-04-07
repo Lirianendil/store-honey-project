@@ -1,5 +1,6 @@
 import { useUser } from "../hooks/useUser";
 import { useGetUserDetailsQuery } from "../redux/api/usersApi";
+import "./User.css";
 
 const User = () => {
   const user = useUser();
@@ -22,14 +23,14 @@ const User = () => {
           <div>
             {userData?.orders?.map((order, index) => {
               return (
-                <div key={order?._id || index}>
+                <div key={order?._id || index} className="order_card">
                   <div>Sum: {order?.totalSum}</div>
-                  <div className="flex gap-2.5 flex-wrap ">
+                  <div className="order_card flex gap-2.5 flex-wrap ">
                     {order.orderProducts?.map((productItem) => {
                       return (
                         <div
                           key={productItem?._id || index}
-                          className="bg-gray-500 py-1.5 px-2.5 w-fit rounded-md text-xs"
+                          className="order_card bg-gray-500 py-1.5 px-2.5 w-fit rounded-md text-xs"
                         >
                           <div>Name: {productItem.product?.name}</div>
                           <div>Amount: {productItem?.amount}</div>

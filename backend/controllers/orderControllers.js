@@ -10,27 +10,27 @@ const createOrder = async (req, res) => {
     const orderData = req.body;
     const user = req.user;
 
-    const productsIds = Array.from(new Set(orderData.orderProducts.map((product) => {
+    const productsIds = orderData.orderProducts.map((product) => {
       return product.product;
-    })));
+    });
 
     const products = await Product.find({ _id: { $in: productsIds } });
 
     let sum = 0;
 
     products.forEach(
-        (product) =>
-            (sum +=
-                product.price *
-                orderData.orderProducts.find(
-                    (orderProduct) => orderProduct.product == product._id
-                ).amount)
+      (product) =>
+        (sum +=
+          product.price *
+          orderData.orderProducts.find(
+            (orderProduct) => orderProduct.product == product._id
+          ).amount)
     );
     const newOrderData = {
       deliveryType: orderData.deliveryType,
       user: req.user._id,
-      totalSum: sum,
-      orderProducts: products.map(product => product._id),
+      orderSum: sum,
+      orderProducts: orderData.orderProducts,
     };
 
     const newOrder = await Order.create(newOrderData);
@@ -40,9 +40,8 @@ const createOrder = async (req, res) => {
     res.status(201).json(newOrder);
   } catch (error) {
     res
-        .status(500)
-        .json({ error: error.message, message: "Could not create order" });
+      .status(500)
+      .json({ error: error.message, message: "Could not create order" });
   }
 };
 module.exports = { createOrder, getOrders };
-
