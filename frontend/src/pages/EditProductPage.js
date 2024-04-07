@@ -25,10 +25,12 @@ const EditProductPage = () => {
     };
 
     const handleSubmit = async () => {
+        console.log("clicked")
         try {
             if (file) {
                 const formData = new FormData();
                 formData.append('photo', file);
+                formData.append('productId', productId)
                 const response = await uploadProductPhoto(formData);
                 if (response.data && response.data.url) {
                     const { url } = response.data;

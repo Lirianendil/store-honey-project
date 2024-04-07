@@ -57,17 +57,19 @@ export const productApi = createApi({
         params: { searchString, page, limit },
       }),
     }),
-    // Метод для загрузки фотографий продуктов
+    // Existing endpoints...
+
+    // New endpoint for uploading a product photo
     uploadProductPhoto: builder.mutation({
       query: (formData) => {
         const headers = {
           "Content-Type": "multipart/form-data",
         };
         return {
-          url: "/products/upload-photo",
+          url: `/products/upload-photo/${formData.get('productId')}`,
           method: "POST",
           headers,
-          body: formData,
+          body: formData.get(),
         };
       },
     }),

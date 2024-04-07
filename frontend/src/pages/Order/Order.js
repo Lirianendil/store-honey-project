@@ -24,9 +24,9 @@ export const Order = () => {
 
   const [createOrder, { isSuccess: orderIsSuccess }] = useCreateOrderMutation();
 
-  const { refetch: refetchItemsNumber } = useGetItemsNumberInCartQuery(
-    user?.token
-  );
+    console.log("orderIsSuccess", orderIsSuccess)
+
+  const { refetch: refetchItemsNumber } = useGetItemsNumberInCartQuery(user?.token)
 
   useEffect(() => {
     if (orderIsSuccess && user?.token) {
@@ -36,33 +36,33 @@ export const Order = () => {
   }, [orderIsSuccess, navigate, user, refetchItemsNumber]);
 
   return (
-    <main>
-      <h1>New Order</h1>
-      <div className="orders_list">
-        {cartProductsList?.map((cartProduct) => {
-          return (
-            <div key={cartProduct?.product?._id} className="order_card">
-              <div>Name: {cartProduct?.product?.name}</div>
-              <div>Price: {cartProduct?.product?.price}</div>
-              <div>Amount: {cartProduct?.amount}</div>
-            </div>
-          );
-        })}
-      </div>
-      <button
-        onClick={() => {
-          createOrder({
-            orderProducts: cartProductsList.map((prod) => ({
-              product: prod.product._id,
-              amount: prod.amount,
-            })),
-            token: user?.token,
-          });
-        }}
-      >
-        Create Order
-      </button>
-    </main>
+      <main>
+          <h1>New Order</h1>
+          <div className="orders_list">
+              {cartProductsList?.map((cartProduct) => {
+                  return (
+                      <div key={cartProduct?.product?._id} className="order_card">
+                          <div>Name: {cartProduct?.product?.name}</div>
+                          <div>Price: {cartProduct?.product?.price}</div>
+                          <div>Amount: {cartProduct?.amount}</div>
+                      </div>
+                  );
+              })}
+          </div>
+          <button
+              onClick={() => {
+                  createOrder({
+                      orderProducts: cartProductsList.map((prod) => ({
+                          product: prod.product ? prod.product._id : null,
+                          amount: prod.amount,
+                      })),
+                      token: user?.token,
+                  });
+              }}
+          >
+              Create Order
+          </button>
+      </main>
   );
 };
 
