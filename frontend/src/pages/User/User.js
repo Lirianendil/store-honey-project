@@ -1,5 +1,5 @@
-import { useUser } from "../hooks/useUser";
-import { useGetUserDetailsQuery } from "../redux/api/usersApi";
+import { useUser } from "../../hooks/useUser";
+import { useGetUserDetailsQuery } from "../../redux/api/usersApi";
 import "./User.css";
 
 const User = () => {
@@ -26,10 +26,10 @@ const User = () => {
                 <div key={order?._id || index} className="order_card">
                   <div>Sum: {order?.totalSum}</div>
                   <div className="order_card flex gap-2.5 flex-wrap ">
-                    {order.orderProducts?.map((productItem) => {
+                    {order.orderProducts?.map((productItem, productIndex) => {
                       return (
                         <div
-                          key={productItem?._id || index}
+                          key={productItem?._id || productIndex}
                           className="order_product"
                         >
                           <div>Name: {productItem.product?.name}</div>
@@ -39,6 +39,8 @@ const User = () => {
                       );
                     })}
                   </div>
+                  {/* Кнопка покупки */}
+                  <button className="purchase_button">Buy</button>
                 </div>
               );
             })}

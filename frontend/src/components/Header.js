@@ -31,7 +31,7 @@ export function Header() {
   };
 
   const onAdminClicked = () => {
-    navigate("/admin");
+    navigate("/admin/create");
   };
 
   const onRegisterClicked = () => {

@@ -3,3 +3,10 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
 }
+
+.admin_product {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  color: black;
+}

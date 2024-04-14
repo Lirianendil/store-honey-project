@@ -4,6 +4,7 @@ import Product from "../../components/Product/Product";
 import ProductForm from "../../components/ProductForm";
 import Section from "../../components/layout/Section";
 import Title from "../Title";
+import { Link } from "react-router-dom";
 import { useAdmin } from "../../hooks/useAdmin";
 
 const Admin = () => {
@@ -39,43 +40,9 @@ const Admin = () => {
         <ProductForm />
       </Section>
 
-      <Section>
-        <div>
-          <input
-            type="text"
-            value={searchString}
-            onChange={(e) => setSearchString(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-      </Section>
-
-      <Section>
-        {!productsIsFetching ? (
-          <div className="products_admin_list">
-            {products?.data?.map((prod) => (
-              <Product key={prod._id} product={prod} isAdmin />
-            ))}
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
-      </Section>
-
-      <Section>
-        <div className="pagination">
-          {products?.totalPages > 1 &&
-            pagesArray.map((page) => (
-              <button
-                className="pagination_btn"
-                key={page}
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            ))}
-        </div>
-      </Section>
+      <Link className="admin_product" to="/admin/product">
+        Go to Admin Product
+      </Link>
     </main>
   );
 };
