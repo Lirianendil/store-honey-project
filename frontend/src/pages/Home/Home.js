@@ -39,15 +39,17 @@ export const Home = () => {
           />
         </Section>
       </div>
-      <div className="d-flex gap-5">
-        {products?.data?.map((product, index) => (
-          <Product
-            key={index}
-            product={product}
-            onAddToCart={() => handleAddToCart(product)}
-          />
-        ))}
-      </div>
+      <Section>
+        <div className="products_admin_list">
+          {products?.data?.map((product, index) => (
+            <Product
+              key={index}
+              product={product}
+              onAddToCart={() => handleAddToCart(product)}
+            />
+          ))}
+        </div>
+      </Section>
     </main>
   );
 };
