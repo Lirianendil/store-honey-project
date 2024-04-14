@@ -14,9 +14,9 @@ const User = () => {
   console.log("orders => ", userData?.orders);
 
   if (userIsFetching) return <h1>Loading user data...</h1>;
-  //TODO fix order creates and return relevant object
+
   return (
-    <main>
+    <main className="user_profile">
       {userIsSuccess && userData ? (
         <div>
           <h1>{userData?.name} user profile</h1>
@@ -30,7 +30,7 @@ const User = () => {
                       return (
                         <div
                           key={productItem?._id || index}
-                          className="order_card bg-gray-500 py-1.5 px-2.5 w-fit rounded-md text-xs"
+                          className="order_product"
                         >
                           <div>Name: {productItem.product?.name}</div>
                           <div>Amount: {productItem?.amount}</div>
@@ -45,7 +45,7 @@ const User = () => {
           </div>
         </div>
       ) : (
-        <h1>No data found</h1>
+        <h1 className="no_data">No data found</h1>
       )}
     </main>
   );

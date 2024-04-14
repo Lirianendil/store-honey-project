@@ -20,6 +20,8 @@ const Product = ({ product, isAdmin }) => {
       />
       <div>Name: {product.name}</div>
       <p>Price: {product.price}</p>
+      <div>Description: {product.description}</div>
+      <div>Amount: {product.amount}</div>
       {!isAdmin ? (
         <div className="product_counter">
           <div className="count_btns">

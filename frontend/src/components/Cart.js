@@ -4,23 +4,20 @@ import { useGetItemsNumberInCartQuery } from "../redux/api/usersApi";
 import { useUser } from "../hooks/useUser";
 
 const Cart = () => {
-    const user = useUser();
+  const user = useUser();
 
-    const { data: itemsNumber, isFetching: cartIsFetching } =
-        useGetItemsNumberInCartQuery(user?.token, { skip: user ? false : true });
+  const { data: itemsNumber, isFetching: cartIsFetching } =
+    useGetItemsNumberInCartQuery(user?.token);
 
-    if (cartIsFetching) return <>Cart is Loading...</>;
+  if (cartIsFetching) return <>Cart is Loading...</>;
 
-    if (!user) return null;
+  if (!user) return null;
 
-    return (
-        <Link
-            to={"/order"}
-            className="cursor-pointer fw-bold text-black"
-        >
-            <i className="fa fa-cart-shopping"></i> {itemsNumber?.amount}
-        </Link>
-    );
+  return (
+    <Link to={"/order"} className="cursor-pointer fw-bold text-black">
+      <i className="fa fa-cart-shopping"></i> {itemsNumber?.amount}
+    </Link>
+  );
 };
 
 export default Cart;
