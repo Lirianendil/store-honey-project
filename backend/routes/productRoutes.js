@@ -16,7 +16,7 @@ router.post("/", protect, upload.single("image"), createProduct);
 router.get("/", getProducts);
 router.get("/search", searchProducts);
 router.get("/:productId", protect, getProductDetails);
-router.patch("/:productId", protect, editProduct);
+// router.patch("/:productId", protect, editProduct);
 router.patch("/:productId", protect, upload.single("image"), updateProduct);
 router.delete("/:productId", protect, deleteProduct);
 

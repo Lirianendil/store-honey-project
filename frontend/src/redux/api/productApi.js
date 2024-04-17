@@ -16,13 +16,13 @@ export const productApi = createApi({
       invalidatesTags: ["Products"],
     }),
     editProduct: builder.mutation({
-      query: ({ token, productId, productData }) => ({
-        url: `/products/${productId}`,
+      query: (body) => ({
+        url: `/products/${body.get("productId")}`,
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${body.get("token")}`,
         },
-        body: productData,
+        body: body,
       }),
       invalidatesTags: ["Product"],
     }),
@@ -66,7 +66,7 @@ export const productApi = createApi({
           "Content-Type": "multipart/form-data",
         };
         return {
-          url: `/products/upload-photo/${formData.get('productId')}`,
+          url: `/products/upload-photo/${formData.get("productId")}`,
           method: "POST",
           headers,
           body: formData.get(),

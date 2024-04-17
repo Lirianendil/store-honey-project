@@ -10,8 +10,8 @@ const createProduct = async (req, res) => {
       imagePath = req.file.path;
     }
     const newProductData = imagePath
-        ? { ...req.body, image: imagePath }
-        : req.body;
+      ? { ...req.body, image: imagePath }
+      : req.body;
     const product = await Product.create(newProductData);
     res.status(201).json(product);
   } catch (error) {
@@ -41,11 +41,11 @@ const searchProducts = async (req, res) => {
       { description: new RegExp(searchString, "i") },
     ],
   })
-      .limit(+limit)
-      .skip((page - 1) * limit);
+    .limit(+limit)
+    .skip((page - 1) * limit);
   res
-      .status(200)
-      .json({ data: products, totalPages: Math.ceil(count / limit) });
+    .status(200)
+    .json({ data: products, totalPages: Math.ceil(count / limit) });
 };
 const updateProduct = async (req, res) => {
   const { productId } = req.params;
@@ -53,7 +53,6 @@ const updateProduct = async (req, res) => {
     const imagePath = req.file.path;
     const product = await Product.findById(productId);
     if (product && imagePath && product.image) {
-      console.log("PRODUCT IMAGE => ", product.image);
       const oldImagePath = `./${product.image.split("\\").join("/")}`;
       console.log("OLD IMAGE PATH => ", oldImagePath);
       if (fs.existsSync(oldImagePath)) {
@@ -65,11 +64,11 @@ const updateProduct = async (req, res) => {
     }
     const newProduct = imagePath ? { ...req.body, image: imagePath } : req.body;
     const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        newProduct,
-        {
-          new: true,
-        }
+      productId,
+      newProduct,
+      {
+        new: true,
+      }
     );
     res.status(200).json(updatedProduct);
   } catch (error) {

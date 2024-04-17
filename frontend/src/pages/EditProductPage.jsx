@@ -8,6 +8,8 @@ import {
 } from "../redux/api/productApi";
 
 const EditProductPage = () => {
+  const [file, setFile] = useState(null);
+
   const { productId } = useParams();
   const user = useUser();
 
@@ -16,47 +18,36 @@ const EditProductPage = () => {
     productId: productId,
   });
 
-  const [newProductData, setNewProductData] = useState(productData || {});
-  const [file, setFile] = useState(null);
-  const [uploadProductPhoto] = useUploadProductPhotoMutation();
-  const [editProduct] = useEditProductMutation();
+  const [formData, setFormData] = useState(productData || {});
 
   useEffect(() => {
     if (productData) {
-      setNewProductData(productData);
+      setFormData(productData);
     }
   }, [productData]);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    setFormData({
+      ...formData,
+      image: event.target.files[0],
+    });
   };
 
-  const handleSubmit = async () => {
-    console.log("clicked");
-    try {
-      if (file) {
-        const formData = new FormData();
-        formData.append("photo", file);
-        formData.append("productId", productId);
-        const response = await uploadProductPhoto(formData);
-        if (response.data && response.data.url) {
-          const { url } = response.data;
-          setNewProductData({ ...newProductData, photoUrl: url });
-        } else {
-          console.error("Error uploading photo: response data is invalid");
-        }
-      }
-      await editProduct({
-        token: user?.token,
-        productId: productId,
-        productData: newProductData,
-      });
-    } catch (error) {
-      console.error("Error uploading photo:", error);
-    }
-  };
+  const [editProduct] = useEditProductMutation();
 
-  console.log(`http://localhost:8080/${newProductData?.image}`);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newFormData = new FormData();
+    newFormData.append("name", formData.name);
+    newFormData.append("description", formData.description);
+    newFormData.append("amount", formData.amount);
+    newFormData.append("price", formData.price);
+    newFormData.append("image", formData.image);
+    newFormData.append("token", user?.token);
+    newFormData.append("productId", productId);
+
+    editProduct(newFormData);
+  };
 
   return (
     <main>
@@ -64,20 +55,18 @@ const EditProductPage = () => {
         Name:{" "}
         <input
           type="text"
-          value={newProductData?.name}
-          onChange={(e) =>
-            setNewProductData({ ...newProductData, name: e.target.value })
-          }
+          value={formData?.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
       </div>
       <div>
         Description:{" "}
         <input
           type="text"
-          value={newProductData?.description}
+          value={formData?.description}
           onChange={(e) =>
-            setNewProductData({
-              ...newProductData,
+            setFormData({
+              ...formData,
               description: e.target.value,
             })
           }
@@ -87,29 +76,21 @@ const EditProductPage = () => {
         Price:{" "}
         <input
           type="text"
-          value={newProductData?.price}
-          onChange={(e) =>
-            setNewProductData({ ...newProductData, price: e.target.value })
-          }
+          value={formData?.price}
+          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
         />
       </div>
       <div>
         Amount:{" "}
         <input
           type="text"
-          value={newProductData?.amount}
-          onChange={(e) =>
-            setNewProductData({ ...newProductData, amount: e.target.value })
-          }
+          value={formData?.amount}
+          onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
         />
       </div>
       <div>
         Photo:{" "}
-        <input
-          type="file"
-          value={"http://localhost:8080/uploads/1713006053936.jpg"}
-          onChange={handleFileChange}
-        />
+        <input type="file" multiple={false} onChange={handleFileChange} />
       </div>
       <button onClick={handleSubmit}>Edit</button>
     </main>
