@@ -22,7 +22,8 @@ export const Order = () => {
     if (userData) setCartProductsList(userData.cart);
   }, [userData]);
 
-  const [createOrder, { isSuccess: orderIsSuccess }] = useCreateOrderMutation();
+  const [createOrder, { data: orderData, isSuccess: orderIsSuccess }] =
+    useCreateOrderMutation();
 
   console.log("orderIsSuccess", orderIsSuccess);
 
@@ -31,11 +32,11 @@ export const Order = () => {
   );
 
   useEffect(() => {
-    if (orderIsSuccess && user?.token) {
+    if (orderIsSuccess && user?.token && orderData) {
       refetchItemsNumber();
       navigate("/profile");
     }
-  }, [orderIsSuccess, navigate, user, refetchItemsNumber]);
+  }, [orderIsSuccess, navigate, user, refetchItemsNumber, orderData]);
 
   return (
     <main>

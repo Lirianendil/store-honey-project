@@ -26,6 +26,7 @@ const createOrder = async (req, res) => {
             (orderProduct) => orderProduct.product == product._id
           ).amount)
     );
+
     const newOrderData = {
       deliveryType: orderData.deliveryType,
       user: req.user._id,

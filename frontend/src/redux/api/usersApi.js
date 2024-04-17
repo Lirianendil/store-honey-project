@@ -98,4 +98,5 @@ export const {
   useLazyGetItemsNumberInCartQuery,
   useGetItemsNumberInCartQuery,
   useGetUserDetailsQuery,
+  useLazyGetUserDetailsQuery,
 } = usersApi;

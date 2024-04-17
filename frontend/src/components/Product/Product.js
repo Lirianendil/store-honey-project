@@ -36,6 +36,7 @@ const Product = ({ product, isAdmin }) => {
             <button onClick={() => setCount(count + 1)}>+</button>
           </div>
           <button
+            disabled={count < 1}
             onClick={() =>
               addToCart({
                 productId: product._id,

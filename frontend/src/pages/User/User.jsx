@@ -1,15 +1,32 @@
+import { useEffect, useState } from "react";
 import { useUser } from "../../hooks/useUser";
-import { useGetUserDetailsQuery } from "../../redux/api/usersApi";
+import {
+  useGetUserDetailsQuery,
+  useLazyGetUserDetailsQuery,
+} from "../../redux/api/usersApi";
 import "./User.css";
 
 const User = () => {
   const user = useUser();
 
-  const {
-    data: userData,
-    isSuccess: userIsSuccess,
-    isFetching: userIsFetching,
-  } = useGetUserDetailsQuery(user?.token);
+  console.log("USER ======> ", user);
+
+  const [userData, setUserData] = useState(null);
+
+  const [
+    loadDetails,
+    { data: userDetails, isSuccess: userIsSuccess, isFetching: userIsFetching },
+  ] = useLazyGetUserDetailsQuery();
+
+  useEffect(() => {
+    if (user && user?.token) loadDetails(user?.token);
+  }, [user]);
+
+  useEffect(() => {
+    if (user && userDetails) {
+      setUserData(userDetails);
+    }
+  }, [user, userDetails, userIsSuccess]);
 
   console.log("orders => ", userData?.orders);
 
