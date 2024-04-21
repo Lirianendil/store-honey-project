@@ -1,8 +1,8 @@
-.products_admin_list {
+/* .products_admin_list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
-}
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+} */
 
 .admin_product {
   display: flex;

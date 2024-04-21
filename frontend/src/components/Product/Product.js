@@ -11,59 +11,72 @@ const Product = ({ product, isAdmin }) => {
   const [addToCart] = useAddItemToCartMutation();
   const [deleteProduct] = useDeleteProductMutation();
   return (
-    <div className="product_card cursor-pointer">
-      <img
-        src={"http://localhost:8080/" + product.image}
-        alt=""
-        width={150}
-        height={150}
-      />
-      <div>Name: {product.name}</div>
-      <p>Price: {product.price}</p>
-      <div>Description: {product.description}</div>
-      <div>Amount: {product.amount}</div>
-      {!isAdmin ? (
-        <div className="product_counter">
-          <div className="count_btns">
-            <button
-              onClick={() => setCount(count - 1)}
-              disabled={count === 0 ? true : false}
-            >
-              -
-            </button>
-            <h2>{count}</h2>
+    <div className="listProduct">
+      <div className="product_card cursor-pointer">
+        <img
+          src={"http://localhost:8080/" + product.image}
+          alt=""
+          width={150}
+          height={150}
+        />
+        <h2>
+          <br />
+          <div>Name: {product.name}</div>
+          <div>Description: {product.description}</div>
+          <div>Amount: {product.amount}</div>
+          <br />
+          <p>Price: {product.price}</p>
+        </h2>
+        {!isAdmin ? (
+          <div className="product_counter">
+            <div className="count_btns">
+              <button
+                className="counter_btn"
+                onClick={() => setCount(count - 1)}
+                disabled={count === 0 ? true : false}
+              >
+                -
+              </button>
+              <h2>{count}</h2>
 
-            <button onClick={() => setCount(count + 1)}>+</button>
+              <button
+                className="counter_btn"
+                onClick={() => setCount(count + 1)}
+              >
+                +
+              </button>
+            </div>
+            <button
+              className="add_to_cart_btn"
+              onClick={() =>
+                addToCart({
+                  productId: product._id,
+                  amount: count,
+                  token: user?.token,
+                })
+              }
+            >
+              Add to cart
+            </button>
           </div>
-          <button
-            onClick={() =>
-              addToCart({
-                productId: product._id,
-                amount: count,
-                token: user?.token,
-              })
-            }
-          >
-            Add to cart
-          </button>
-        </div>
-      ) : (
-        <>
-          <Link
-            className="primary-btn"
-            to={`/admin/products/edit/${product._id}`}
-          >
-            Edit
-          </Link>
-          <button
-            onClick={() =>
-              deleteProduct({ token: user?.token, productId: product._id })
-            }
-          >
-            Delete product
-          </button>
-        </>
-      )}
+        ) : (
+          <>
+            <Link
+              className="primary-btn"
+              to={`/admin/products/edit/${product._id}`}
+            >
+              Edit
+            </Link>
+            <button
+              onClick={() =>
+                deleteProduct({ token: user?.token, productId: product._id })
+              }
+            >
+              Delete product
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
