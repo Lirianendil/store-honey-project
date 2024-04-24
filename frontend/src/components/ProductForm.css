@@ -1,0 +1,22 @@
+.product_form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 50%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.product_form-inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product_form input {
+  width: 100%;
+}

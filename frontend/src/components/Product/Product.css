@@ -1,0 +1,39 @@
+.product_card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.count_btns {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.count_btns button {
+    background-color: #d2a106; /* Темно-желтый цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.count_btns button:hover {
+    background-color: #b58c05; /* Немного темнее при наведении */
+    transform: scale(1.1); /* Немного увеличивается */
+}
+
+.count_btns button:disabled {
+    background-color: #ccc; /* Серый цвет для неактивной кнопки */
+    cursor: not-allowed;
+}
+
+.count_btns h2 {
+    font-size: 20px;
+    margin: 0 15px;
+}

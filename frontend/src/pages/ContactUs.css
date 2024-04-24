@@ -1,0 +1,38 @@
+.contact-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fffbe6;
+    font-family: Arial, sans-serif;
+}
+
+.contact-container h1 {
+    color: #b85c00;
+    text-align: center;
+}
+
+.contact-container p {
+    color: #333;
+    line-height: 1.5;
+}
+
+.contact-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-container li {
+    margin-bottom: 10px;
+}
+
+.contact-container a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-container a:hover {
+    color: #ff9900;
+}
