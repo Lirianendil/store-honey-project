@@ -1,39 +1,96 @@
 .product_card {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    background-color: #f9f9f9;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
 .count_btns {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.count_btns button {
-    background-color: #d2a106; /* Темно-желтый цвет */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+.count-btn {
+  background-color: #d2a3067e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  padding: 0;
+  font-size: 26px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .count_btns button:hover {
-    background-color: #b58c05; /* Немного темнее при наведении */
-    transform: scale(1.1); /* Немного увеличивается */
+  background-color: #d2a306;
+  transform: scale(1.1);
 }
 
 .count_btns button:disabled {
-    background-color: #ccc; /* Серый цвет для неактивной кнопки */
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.count_btns button:disabled:hover {
+  transform: scale(1);
 }
 
 .count_btns h2 {
-    font-size: 20px;
-    margin: 0 15px;
+  font-size: 20px;
+}
+
+.product-title {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 10px;
+  margin: 10px 0;
+}
+
+.product-img-wrapper {
+  width: 100%;
+  height: 200px;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product-desc {
+  text-align: left;
+  color: rgb(85, 91, 97);
+  margin-bottom: 10px;
+}
+
+.cart-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.cart-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(128, 128, 128, 0.08);
+  transition: 0.2s background-color;
+}
+
+.cart-btn:hover {
+  border-color: transparent;
+  background-color: rgba(128, 128, 128, 0.258);
+}
+
+.count-num {
+  font-size: 24px;
 }

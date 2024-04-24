@@ -41,17 +41,22 @@ export const Order = () => {
   return (
     <main>
       <h1>New Order</h1>
-      <div className="orders_list">
-        {cartProductsList?.map((cartProduct) => {
-          return (
-            <div key={cartProduct?.product?._id} className="order_card">
-              <div>Name: {cartProduct?.product?.name}</div>
-              <div>Price: {cartProduct?.product?.price}</div>
-              <div>Amount: {cartProduct?.amount}</div>
-            </div>
-          );
-        })}
-      </div>
+      {cartProductsList?.length < 1 ? (
+        <h1>No products in your cart</h1>
+      ) : (
+        <div className="orders_list">
+          {cartProductsList?.map((cartProduct) => {
+            return (
+              <div key={cartProduct?.product?._id} className="order_card">
+                <div>Name: {cartProduct?.product?.name}</div>
+                <div>Price: {cartProduct?.product?.price}</div>
+                <div>Amount: {cartProduct?.amount}</div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <button
         onClick={() => {
           createOrder({

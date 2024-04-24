@@ -34,14 +34,14 @@ const Admin = () => {
 
   return (
     <main>
-      <Title title={"Admin"} />
+      <Title title={"New Product"} />
 
       <Section>
         <ProductForm />
       </Section>
 
       <Link className="admin_product" to="/admin/product">
-        Go to Admin Product
+        Go to Product List
       </Link>
     </main>
   );

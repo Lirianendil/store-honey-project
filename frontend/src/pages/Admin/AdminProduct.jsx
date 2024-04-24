@@ -31,9 +31,11 @@ const AdminProduct = () => {
   return (
     <main>
       <Section>
-        <div>
+        <div className="mb-3 w-auto d-flex gap-4 justify-content-center align-items-center">
           <input
+            className="form-control w-50"
             type="text"
+            placeholder="Enter product name"
             value={searchString}
             onChange={(e) => setSearchString(e.target.value)}
           />
@@ -69,7 +71,7 @@ const AdminProduct = () => {
       </Section>
 
       <Link className="admin_product" to="/admin/create">
-        Go to Admin Create Product
+        Go to Add New Product
       </Link>
     </main>
   );

@@ -41,6 +41,7 @@ const ProductForm = () => {
         <div className="product_form-row">
           Name:
           <input
+            className="form-control w-100"
             type="text"
             name="name"
             placeholder="name"
@@ -51,6 +52,7 @@ const ProductForm = () => {
         <div className="product_form-row">
           Description:
           <input
+            className="form-control w-100"
             type="text"
             name="description"
             placeholder="description"
@@ -61,6 +63,7 @@ const ProductForm = () => {
         <div className="product_form-row">
           Price:
           <input
+            className="form-control w-100"
             type="text"
             name="price"
             placeholder="price"
@@ -71,6 +74,7 @@ const ProductForm = () => {
         <div className="product_form-row">
           Amount:
           <input
+            className="form-control w-100"
             type="text"
             name="amount"
             placeholder="amount"
@@ -81,6 +85,7 @@ const ProductForm = () => {
         <div className="product_form-row">
           Image:
           <input
+            className="form-control w-100"
             type="file"
             accept="image/*"
             onChange={(e) =>

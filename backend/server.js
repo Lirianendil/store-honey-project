@@ -10,7 +10,7 @@ const userRoutes = require("./routes/userRoutes");
 
 const cors = require("cors");
 const corsOptions = {
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+  origin: ["http://localhost:5173", "http://localhost:3000"],
 };
 app.use(cors(corsOptions));
 
@@ -22,12 +22,9 @@ const orderRoutes = require("./routes/orderRoutes");
 const PORT = process.env.PORT || 8080;
 // MongoDB connection
 mongoose
-    .connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log("Connected to Database"))
-    .catch((err) => console.error("Connection Error:", err));
+  .connect(process.env.MONGODB_URL)
+  .then(() => console.log("Connected to Database"))
+  .catch((err) => console.error("Connection Error:", err));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 // Routes
@@ -37,10 +34,9 @@ app.use("/orders", orderRoutes);
 app.use("/users", userRoutes);
 // Middleware для обработки ошибок
 const errorHandler = (err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send("Something broke!");
-    next(); // Вызываем next, чтобы передать управление следующему middleware
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+  next(); // Вызываем next, чтобы передать управление следующему middleware
 };
 app.use(errorHandler);
 app.listen(PORT, () => console.log("Сервер запущен на порту: " + PORT));
-
